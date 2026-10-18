@@ -13,6 +13,8 @@ an issue in this repo.
 
 ## STATS19
 
+stats19.R reproduces the following.
+
 ![](outputs/stats19/sev_year.png) Output of reproducible code for
 individual stats: pedestrian casualties recorded in 2025: 19978<br>
 pedestrian casualties recorded in 2024: 19176<br> difference = 802<br>
@@ -42,8 +44,8 @@ since 09-07-2023: 95
 ## National travel survey plots
 
 nts_plots.R downloads the national travel survey data and generates the
-plots for all categories. In this case the interest was younger person
-female walking rates. ![](outputs/nts/activity/index_Walking_Female.png)
+plots for all categories. In this case younger person female walking
+rates. ![](outputs/nts/activity/index_Walking_Female.png)
 ![](outputs/nts/activity/total_Walking_Female.png)
 
 ## Homicide rates vs STATS19
