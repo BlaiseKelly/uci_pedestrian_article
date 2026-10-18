@@ -16,6 +16,7 @@ Grateful to anyone who spots any errors/has improvements. Please raise an issue 
 ## STATS19
 
 ![](outputs/stats19/sev_year.png)
+Output of reproducible code for individual stats:
 {{< include outputs/stats19/stats_text.md >}}
 
 ![](outputs/stats19/vehicles_pavements.png)

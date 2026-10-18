@@ -521,18 +521,18 @@ fatal pedestrian casualties on pavement in 2024: {cas_pv_fatal$Fatal[cas_pv_fata
 % of all fatal pavement collisions that involved a motor car: {veh_pv_fat_cat$pc[veh_pv_fat_cat$vehicle_cat == 'Motor vehicle']}<br>
 % of all fatal pavement collisions that involved an unknown: {veh_pv_fat_cat$pc[veh_pv_fat_cat$vehicle_cat == 'Unknown']}<br>
 % of all fatal pavement collisions that involved a Bicycle, e-scooter or mobility scooter: {veh_pv_fat_cat$pc[veh_pv_fat_cat$vehicle_cat == 'Bicycle/E-scooter/Mobility Scooter']}<br>
-% of people KSI who were in motor vehicles between 2021 and 2025: {cas_type$ksi_pc[cas_type$short_name == 'Motor vehicle'][1]}<br>
+% of people KSI who were in private cars between 2021 and 2025: {cas_type$ksi_pc[cas_type$short_name == 'Car occupant'][1]}<br>
 % of people KSI were were on an escooter between 2021 and 2025: {cas_type$ksi_pc[cas_type$short_name == 'E-scooter rider'][1]}<br>
 % of escooter collisions also involving a motor vehicle: {round(NROW(veh_m)/NROW(veh_e_mv)*100)}<br>
 Under 16s KSI on escooters between 2021 and 2025: {cas_u16$ksi[cas_u16$casualty_type == 'E-scooter rider'][1]}<br>
-Under 16s KSI inside cars between 2021 and 2025: {cas_u16$ksi[cas_u16$casualty_type == 'Car occupant'][1]}<br>
+Under 16s KSI inside private cars between 2021 and 2025: {cas_u16$ksi[cas_u16$casualty_type == 'Car occupant'][1]}<br>
 Under 16s KSI as pedestrians between 2021 and 2025: {cas_u16$ksi[cas_u16$casualty_type == 'Pedestrian'][1]}<br>
 Pavement fatalities since 09-07-2023: {sum(casualties_since_2023$Fatal)}
 ")
 
 # --- where to send it ---
 cat(report_text)                                  # console
-writeLines(report_text, "stats_text.md")     # to a file
+writeLines(report_text, "outputs/stats19/stats_text.md")     # to a file
 
 #write.csv(all_vehicle_pavement, "pavement_crashes.csv")
 
