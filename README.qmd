@@ -14,16 +14,17 @@ Download and install R and Studio. Opening a .R file in Rstudio will prompt inst
 Grateful to anyone who spots any errors/has improvements. Please raise an issue in this repo.
 
 ## STATS19
+stats19.R reproduces the following.
 
 ![](outputs/stats19/sev_year.png)
-Output of reproducible code for individual stats:
+Output of reproducible code for individual stats:  
 {{< include outputs/stats19/stats_text.md >}}
 
 ![](outputs/stats19/vehicles_pavements.png)
 ![](outputs/stats19/av_pavement_fatalities.png)
 
 ## National travel survey plots
-nts_plots.R downloads the national travel survey data and generates the plots for all categories. In this case the interest was younger person female walking rates.
+nts_plots.R downloads the national travel survey data and generates the plots for all categories. In this case younger person female walking rates.
 ![](outputs/nts/activity/index_Walking_Female.png)
 ![](outputs/nts/activity/total_Walking_Female.png)
 
