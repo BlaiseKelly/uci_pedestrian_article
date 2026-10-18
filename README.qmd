@@ -1,0 +1,48 @@
+---
+title: "The Greatest Threat to Pedestrians on Britain’s Pavements"
+format: gfm
+  # docx:
+  #   toc: true
+  #   number-sections: true
+  #   highlight-style: github
+editor: source
+---
+Code to produce numbers and plots used in article for the Urban Cycling Institute (UCI) on Pavement deaths in Great Britain.
+
+Download and install R and Studio. Opening a .R file in Rstudio will prompt installation of packages and on accepting will install, the scripts should then be able to be run.
+
+Grateful to anyone who spots any errors/has improvements. Please raise an issue in this repo.
+
+## STATS19
+
+![](outputs/stats19/sev_year.png)
+{{< include outputs/stats19/stats_text.md >}}
+
+![](outputs/stats19/vehicles_pavements.png)
+![](outputs/stats19/av_pavement_fatalities.png)
+
+## National travel survey plots
+nts_plots.R downloads the national travel survey data and generates the plots for all categories. In this case the interest was younger person female walking rates.
+![](outputs/nts/activity/index_Walking_Female.png)
+![](outputs/nts/activity/total_Walking_Female.png)
+
+## Homicide rates vs STATS19
+ons_homicide.R downloads the ONS homicide rates and produces the street crime data and also recalculates STATS19 data only including England and Wales and for the same period as the crime data, which is April to March of each year.
+
+## Energy 
+### Sankey
+sankey.R creates a diagram showing the kinetic energy needed to move a 1500kg car and 80kg person plus the chemical energy needed to do so with a 25% efficient internal combustion engine. Can be adjusted for different vehicles, persons and efficiencies.
+![](outputs/energy/sankey.png)
+
+### Interactive calculator
+energy_transport_shiny.R is a shiny app that enables interactive inputs of data and creation of vehicles.
+https://blaisekelly.github.io/me/nrg_transport.html
+
+
+
+
+
+
+
+
+
