@@ -376,7 +376,7 @@ for (s in sexes){
     nts_index %>%
       ggplot(aes(Year, activity_index, color = Age)) +
       geom_line(alpha = .8, size = 1.4) +
-      gghighlight(Age %in% c("0 to 16", "17 to 20")) +
+      gghighlight(Age %in% c("All Ages", "0 to 16", "17 to 20")) +
       dft_theme +
       theme(panel.background = element_blank(),
             legend.position = "top",
@@ -404,6 +404,3 @@ img2 = magick::image_read("outputs/nts/highlight/total_Walking_Female.png")
 imgs = magick::image_append(image = c(img1,img2), stack = FALSE)
 
 magick::image_write(imgs,"outputs/nts/highlight/female_plots.png")
-
-
-Since 2004, men walk 40 miles more on average, but the figure is only 20 miles more for women.That is except for the under 20s, notably girls, who in the 0-16 age bracket have gone from being one of the age groups that walked the most in 2004 to the age bracket walking the least, now walking on average 70 miles less, the least of any age group except for the over 70s (chart 5).
