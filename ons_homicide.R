@@ -6,6 +6,7 @@ library(sf)
 library(purrr)
 library(lubridate)
 library(geographr)
+library(glue)
 
 # download homicide rates in England and Wales
 download.file("https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/crimeandjustice/datasets/appendixtableshomicideinenglandandwales/current/homicideinenglandandwalesappendixtablesyemar2025finalv2.xlsx",
@@ -41,7 +42,7 @@ homicide_public = openxlsx::read.xlsx("https://www.ons.gov.uk/file?uri=/peoplepo
   group_by(sex) |> 
   summarise(total = sum(as.numeric(killed),na.rm = TRUE))
 
-# Recalculate STATS19 data to match Police crime data.
+# Recalculate STATS19 data to match Police crime data date period
 # define the year range of analysis
 base_year = 2021
 upper_year = 2025
@@ -111,4 +112,15 @@ cas_ped_fat_eng_wales = casualties_ped_fat |>
 # total pedestrian fatalities
 sum(cas_ped_fat_eng_wales$all)
 
-However, in England and Wales between April 2021 and March 2025 47 women were murdered on “streets, footpaths, alleyways” compared to 72 killed by road violence whilst on a pavement. For all outdoor spaces 784 people were murdered in “open outdoor areas”. In the same period nearly double this number (1417) of pedestrians were killed on streets, mostly by motor vehicles.
+report_text <- glue("
+In England and Wales between April 2021 and March 2025 {homicide_streets$total[homicide_streets$sex == 'Female victims']} women were murdered on “streets, footpaths, alleyways”
+compared to {cas_pv_fat_eng_wales$all[1]} killed by road violence whilst on a pavement. 
+For all outdoor spaces {homicide_public$total[homicide_public$sex == 'All victims']} people were murdered in “open outdoor areas”.
+({sum(cas_ped_fat_eng_wales$all)}) of pedestrians were killed on streets.
+
+")
+
+# --- where to send it ---
+cat(report_text)                                  # console
+writeLines(report_text, "outputs/stats19/ons_homicide_text.md")     # to a file
+
