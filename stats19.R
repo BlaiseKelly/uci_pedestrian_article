@@ -193,7 +193,23 @@ casualties_gb = get_stats19(yrs2get, type = "casualty")|>
       casualty_type
     ))
 
+cas_u16_es = casualties_gb |> 
+  filter(age_of_casualty < 17 & casualty_type == "E-scooter rider")
 
+veh_e_only = vehicles_gb |> 
+  filter(collision_index %in% cas_u16_es$collision_index) |> 
+  summarise_vehicle_types("short_name") |> 
+  mutate(vehicle_cat = ifelse(short_name == "Other vehicle","Unknown",short_name)) |> 
+  mutate(vehicle_cat = ifelse(vehicle_cat %in% c("Pedal cycle", "e-scooter","Mobility scooter"),"Bicycle/E-scooter/Mobility Scooter",vehicle_cat)) |>
+  mutate(vehicle_cat = ifelse(!vehicle_cat == "Bicycle/E-scooter/Mobility Scooter" & !vehicle_cat == "Unknown","Motor vehicle",vehicle_cat)) |> 
+  mutate(vehicle_cat = ifelse(short_name == "Tram","Tram",vehicle_cat)) |> 
+  mutate(vehicle_cat = ifelse(is.na(short_name),"Unknown",vehicle_cat)) |> 
+  dplyr::group_by(collision_index, vehicle_cat) %>%
+  dplyr::mutate(number_vehicles = 1) %>%
+  dplyr::summarise(number_vehicles = sum(number_vehicles), .groups = "drop") |> 
+  tidyr::pivot_wider(names_from = "vehicle_cat", values_from = "number_vehicles")
+
+veh_mv_e = filter(veh_e_only,!is.na(`Motor vehicle`))
 
 cas_u16 = casualties_gb |> 
   filter(age_of_casualty < 17) |> 
@@ -524,6 +540,7 @@ fatal pedestrian casualties on pavement in 2024: {cas_pv_fatal$Fatal[cas_pv_fata
 % of people KSI who were in private cars between 2021 and 2025: {cas_type$ksi_pc[cas_type$short_name == 'Car occupant'][1]}<br>
 % of people KSI were were on an escooter between 2021 and 2025: {cas_type$ksi_pc[cas_type$short_name == 'E-scooter rider'][1]}<br>
 % of escooter collisions also involving a motor vehicle: {round(NROW(veh_m)/NROW(veh_e_mv)*100)}<br>
+% of U16 escooter casualties collisions involving a motor vehicle: {round(NROW(veh_mv_e)/NROW(veh_e_only)*100,1)}<br>
 Under 16s KSI on escooters between 2021 and 2025: {cas_u16$ksi[cas_u16$casualty_type == 'E-scooter rider'][1]}<br>
 Under 16s KSI inside private cars between 2021 and 2025: {cas_u16$ksi[cas_u16$casualty_type == 'Car occupant'][1]}<br>
 Under 16s KSI as pedestrians between 2021 and 2025: {cas_u16$ksi[cas_u16$casualty_type == 'Pedestrian'][1]}<br>
