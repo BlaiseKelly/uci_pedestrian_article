@@ -3,6 +3,7 @@ library(tidyr)
 library(ltc)
 library(ggplot2)
 library(gghighlight)
+library(glue)
 
 dir.create("outputs/nts/grouped/", recursive = TRUE)
 dir.create("data")
@@ -404,3 +405,19 @@ img2 = magick::image_read("outputs/nts/highlight/total_Walking_Female.png")
 imgs = magick::image_append(image = c(img1,img2), stack = FALSE)
 
 magick::image_write(imgs,"outputs/nts/highlight/female_plots.png")
+
+
+report_text <- glue("
+In 2025 the population walks about the same as they did in 2004 on average (difference = {walking$diff[walking$Age == 'All Ages' & walking$`Sex [note 7]` == 'All people']} miles), with the older population walking more 
+but the younger population significantly less. 
+Women under 20 walk 
+{abs(walking$diff[walking$Age == '17 to 20' & walking$`Sex [note 7]` == 'Female']+walking$diff[walking$Age == '0 to 16' & walking$`Sex [note 7]` == 'Female'])/2
+} miles less than 21 years ago.
+
+")
+
+# --- where to send it ---
+cat(report_text)                                  # console
+writeLines(report_text, "outputs/stats19/nts_text.md")     # to a file
+
+
